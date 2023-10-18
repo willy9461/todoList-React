@@ -5,7 +5,7 @@ const ListTasks = ({ tasks, renderTask }) => {
     <div>
       <section>
         {tasks.map((task) => {
-          return renderTask(task);
+          return renderTask(task); // aca uso el render Prop 
         })}
       </section>
     </div>

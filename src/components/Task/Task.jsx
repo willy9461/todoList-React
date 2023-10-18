@@ -1,6 +1,6 @@
 import React from "react";
 
-const Task = ({id, title, completed, onCompleted, onDeleted}) => {
+const Task = ({ title, completed, onCompleted, onDeleted}) => {
 
     const handleDelete = () => {
         onDeleted();

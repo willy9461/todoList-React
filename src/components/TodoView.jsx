@@ -5,9 +5,6 @@ import Form from "./Form/Form";
 import Title from "./Title/TItle";
 import ListTasks from "./ListTasks/ListTasks";
 
-
-
-
 const TodoView = () => {
   // tareas
   const [tasks, setTasks] = useState([]);
@@ -17,7 +14,6 @@ const TodoView = () => {
     title: title,
     completed: false,
   });
-
 
   // UNA FORMA DE PONER COMO COMPLETA LA TAREA (PERO NO LA IDEAL PORQUE CAMBIA OBJETO ORIGINAL TASK)
   // const completeTask = (id) => {
@@ -34,40 +30,46 @@ const TodoView = () => {
 
   const completeTask = (id) => {
     const draft = structuredClone(tasks);
-    const task = draft.find((task) => task.id === id); 
+    const task = draft.find((task) => task.id === id);
     task.completed = !task.completed;
     setTasks(draft);
-  }
-  
+  };
+
   const deleteTask = (id) => {
     const newTasks = tasks.filter((task) => task.id !== id);
     setTasks(newTasks);
-  }; 
-  
+  };
 
   return (
-    <div>
-      <Title><h1>Lista de tareas React</h1></Title>
-      <Form 
-      createTask={createTask}
-      setTasks={setTasks}
-      tasks={tasks}
+    <div
+      style={{
+        maxWidth: "50vw",
+        minHeight: "40vh",
+        backgroundColor: "#5B2C6F ",
+      }}
+    >
+      <Title>
+        <h1>Lista de tareas React</h1>
+      </Title>
+      <Form createTask={createTask} setTasks={setTasks} tasks={tasks} />
+      <ListTasks
+        tasks={tasks}
+        renderTask={(task) => {
+          return (
+            <Task
+              key={task.id}
+              title={task.title}
+              completed={task.completed}
+              onCompleted={() => {
+                completeTask(task.id);
+              }}
+              onDeleted={() => {
+                deleteTask(task.id);
+              }}
+            />
+          );
+        }}
       />
-      <ListTasks 
-      tasks={tasks}
-      renderTask={(task) => {
-        return (
-          <Task 
-          key={task.id}
-          title={task.title}
-          completed={task.completed}
-          onCompleted={() => {completeTask(task.id);}}
-          onDeleted={() => {deleteTask(task.id);}}
-          />
-        )
-      }} 
-      />
-      
     </div>
   );
 };
